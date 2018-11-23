@@ -20,12 +20,10 @@ class FlutterReduxApp extends StatelessWidget {
   final Store<AppState> store;
   final String title;
 
-  FlutterReduxApp({Key key, this.store, this.title});
+  FlutterReduxApp({Key key, this.store, this.title}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var header = AppHeader();
-
     return new StoreProvider<AppState>(
       store: store,
       child: new MaterialApp(
@@ -34,8 +32,8 @@ class FlutterReduxApp extends StatelessWidget {
         home: new Scaffold(
           body: Column(
             children: <Widget>[
-              header.buildMenuButton(context),
-              header.buildTitle(context),
+              new AppHeaderMenu(),
+              new AppHeaderTitle(),
               buildBody(store.state.nav),
             ],
           ),

@@ -13,7 +13,10 @@ class _ViewState {
 }
 
 _ViewState _viewStateBuilder(Store<AppState> store) => _ViewState(
+  // state
   nav: store.state.nav,
+
+  // actions
   menuTapCallback: (int index) {
     switch(index) {
     case 0: store.dispatch(navv.NavActions.SwitchToSymptoms);break;
@@ -34,12 +37,13 @@ class BottomNavigation extends StatelessWidget {
         return new BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           currentIndex: mod.nav.navIndex,
+          iconSize: 26.0,
           onTap: mod.menuTapCallback,
           items: <BottomNavigationBarItem>[
-            new BottomNavigationBarItem(icon: Icon(Icons.local_hospital), title: Text('Symptoms')),
-            new BottomNavigationBarItem(icon: Icon(Icons.graphic_eq), title: Text('Input')),
-            new BottomNavigationBarItem(icon: Icon(Icons.show_chart), title: Text('Insights')),
-            new BottomNavigationBarItem(icon: Icon(Icons.list), title: Text('Log')),
+            new BottomNavigationBarItem(icon: Icon(Icons.local_hospital), title: Text('')),
+            new BottomNavigationBarItem(icon: Icon(Icons.graphic_eq), title: Text('')),
+            new BottomNavigationBarItem(icon: Icon(Icons.show_chart), title: Text('')),
+            new BottomNavigationBarItem(icon: Icon(Icons.list), title: Text('')),
           ],
         );
       },

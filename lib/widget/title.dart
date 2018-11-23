@@ -14,15 +14,14 @@ _ViewState _viewStateBuilder(Store<AppState> store) => _ViewState(
 );
 
 
-/// Class to help render the menu and title on the top-portion of the screen.
-/// These components build on top of the redux state and this class also
-/// takes care of building up the necessary state.
-class AppHeader {
+/// Build the menu button that displays at the very top of the app. This
+/// is the button that opens up the bottom drawer menu to get help or
+/// provide feedback.
+class AppHeaderMenu extends StatelessWidget {
+  AppHeaderMenu({Key key}): super(key: key);
 
-  /// Build the menu button that displays at the very top of the app. This
-  /// is the button that opens up the bottom drawer menu to get help or
-  /// provide feedback.
-  Widget buildMenuButton(BuildContext ctx) {
+  @override
+  Widget build(BuildContext ctx) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.end,
@@ -31,16 +30,55 @@ class AppHeader {
           padding: EdgeInsets.only(top: 30.0),
           child: IconButton(
             icon: Icon(Icons.more_vert),
-            onPressed: () => {},
+            onPressed: () {
+              showModalBottomSheet(
+                context: ctx,
+                builder: this.buildBottomModalMenu,
+              );
+            },
             tooltip: 'Options',
           )
       )],
     );
   }
 
-  /// Build the main title element that let's you know what page you're
-  /// currently on. This is mostly a reflection of the bottom navigation.
-  Widget buildTitle(BuildContext ctx) {
+  /// Build a bottom-navigation menu to render inside of the modal bottom-sheet
+  /// that is shown when the user clicks the menu button rendered by the top
+  /// menu button.
+  /// See: buildMenuButton
+  Widget buildBottomModalMenu(BuildContext ctx) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 15.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          ListTile(
+            leading: Icon(Icons.feedback),
+            title: Text('Give Feedback'), 
+            onTap: () => onModalMenuTap('feedback'),),
+          ListTile(
+            leading: Icon(Icons.help_outline),
+            title: Text('Help'),
+            onTap: () => onModalMenuTap('haalp'),),
+        ],
+      ),
+    );
+  }
+
+  Function onModalMenuTap(String name) {
+    return () {
+      // TODO: display appropriate container
+    };
+  }
+}
+
+
+/// Build the main title element that let's you know what page you're
+/// currently on. This is mostly a reflection of the bottom navigation.
+class AppHeaderTitle extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext ctx) {
     return Row(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -64,4 +102,5 @@ class AppHeader {
       ],
     );
   }
+
 }
