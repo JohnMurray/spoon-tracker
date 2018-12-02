@@ -35,6 +35,22 @@ within Flutter and _not_ make use of native code. Changes that _require_ native 
 on both platforms (Android and iOS) unless the feature only make sense on one (e.g. integration with
 Apple Watch).
 
+## Milestone: Version 1
+
+The current batch of work for this milestone is tracked in the issues, but it's likely that the tickets
+there don't represent the whole of the work to be done (cause I haven't created all of the tickets yet),
+so just a recap here that I'm generally shooting for the following:
+
+  - symptom tracking (preset value + custom inputs)
+  - input tracking (custom values + apple health data)
+  - insights - version 1 of correlation predictions between input(s) and symptoms
+  - log-view of all tracked events with ability to delete/edit past entries
+  - faq, legal, and feedback pages with useful information and working properly
+
+Once this milestone is reached, future work will focus on increasing the number of dynamic inputs, such
+as weather and other smart-devices, as well as improving the algorithms behind the _insights_ feature
+of the application.
+
 ## Privacy
 
 The goal of __Version 1__ is to build an application that is entirely local. The data is not stored
