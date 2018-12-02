@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 
-import 'title.dart';
+import 'page.dart';
 
 class LegalStuffPage extends StatelessWidget {
   LegalStuffPage({Key key}): super(key: key);
 
   @override
   Widget build(BuildContext ctx) {
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          AppHeaderMenu(renderBackButton: true),
-          AppHeaderTitle(title: 'Legal Stuff'),
-          Text('legal-stuff'),
-        ],
-      ),
+    return NavigablePage(
+      title: 'Legal Stuff',
+      children: <Widget>[
+        Text('legal-stuff 2')
+      ],
     );
   }
 }

@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 
-import 'title.dart';
+import 'page.dart';
 
 class FeedbackPage extends StatelessWidget {
   FeedbackPage({Key key}): super(key: key);
 
   @override
   Widget build(BuildContext ctx) {
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          AppHeaderMenu(renderBackButton: true),
-          AppHeaderTitle(title: 'Feedback'),
-          Text('feedback'),
-        ],
-      ),
+    return NavigablePage(
+      title: 'Feedback',
+      children: <Widget>[
+        Text('feedback 2')
+      ],
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'title.dart';
+import 'page.dart';
 
 class HalpPage extends StatelessWidget {
 
@@ -8,13 +8,11 @@ class HalpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext ctx) {
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          AppHeaderMenu(renderBackButton: true),
-          AppHeaderTitle(title: 'HALP!'),
-        ],
-      ),
+    return NavigablePage(
+      title: 'HALP!',
+      children: <Widget>[
+        Text('halp information')
+      ],
     );
   }
 }
