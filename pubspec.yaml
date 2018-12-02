@@ -25,6 +25,11 @@ dependencies:
   redux: 3.0.0
   flutter_redux: 0.5.2
 
+  # redux tools & middleware
+  redux_logging: 0.3.0
+
+  shared_preferences: 0.4.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -18,15 +18,19 @@ _ViewState _viewStateBuilder(Store<AppState> store) => _ViewState(
 /// is the button that opens up the bottom drawer menu to get help or
 /// provide feedback.
 class AppHeaderMenu extends StatelessWidget {
-  AppHeaderMenu({Key key}): super(key: key);
+  final bool renderBackButton;
+
+  AppHeaderMenu({Key key, this.renderBackButton = false}): super(key: key);
 
   @override
   Widget build(BuildContext ctx) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
-      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       mainAxisSize: MainAxisSize.max,
-      children: <Widget>[Padding(
+      children: <Widget>[
+        buildBackButton(ctx),
+        Padding(
           padding: EdgeInsets.only(top: 30.0),
           child: IconButton(
             icon: Icon(Icons.more_vert),
@@ -38,8 +42,22 @@ class AppHeaderMenu extends StatelessWidget {
             },
             tooltip: 'Options',
           )
-      )],
+        ),
+      ],
     );
+  }
+
+  Widget buildBackButton(BuildContext ctx) {
+    if (renderBackButton == true) {
+      return Padding(
+        padding: EdgeInsets.only(),
+        child: IconButton(
+          icon: Icon(Icons.arrow_back, color: Color(0xFF444444),),
+          onPressed: () => Navigator.of(ctx).pop(),
+        ),
+      );
+    }
+    return Padding(padding: EdgeInsets.only());
   }
 
   /// Build a bottom-navigation menu to render inside of the modal bottom-sheet
@@ -55,18 +73,25 @@ class AppHeaderMenu extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.feedback),
             title: Text('Give Feedback'), 
-            onTap: () => onModalMenuTap('feedback'),),
+            onTap: onModalMenuTap(ctx, '/feedback')),
           ListTile(
             leading: Icon(Icons.help_outline),
-            title: Text('Help'),
-            onTap: () => onModalMenuTap('haalp'),),
+            title: Text('HALP!'),
+            onTap: onModalMenuTap(ctx, '/haalp')),
+          ListTile(
+            leading: Icon(Icons.info_outline),
+            title: Text('Legal Stuff'),
+            onTap: onModalMenuTap(ctx, '/legal_stuff')),
         ],
       ),
     );
   }
 
-  Function onModalMenuTap(String name) {
+  Function onModalMenuTap(BuildContext ctx, String name) {
     return () {
+      Navigator.of(ctx).pop();
+      Navigator.of(ctx).pushNamed(name);
+      // Navigator.pushNamed(ctx, name);
       // TODO: display appropriate container
     };
   }
@@ -75,7 +100,13 @@ class AppHeaderMenu extends StatelessWidget {
 
 /// Build the main title element that let's you know what page you're
 /// currently on. This is mostly a reflection of the bottom navigation.
+///
+/// This component automatically updates from the redux state, but can
+/// be set statically (manually) via the constructor parameter.
 class AppHeaderTitle extends StatelessWidget {
+  final String title;
+
+  AppHeaderTitle({Key key, this.title}): super(key: key);
 
   @override
   Widget build(BuildContext ctx) {
@@ -89,7 +120,7 @@ class AppHeaderTitle extends StatelessWidget {
             converter: _viewStateBuilder,
             builder: (ctx, state) {
               return Text(
-                state.pageTitle,
+                this.title ?? state.pageTitle,
                 style: TextStyle(
                   color: Color(0xFF4a4a4a),
                   fontSize: 36,
